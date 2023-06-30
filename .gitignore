@@ -1,3 +1,11 @@
+# My
+philo/obj
+philo_bonus/obj
+*/*.o
+*/*.a
+.vscode/
+.DS_Store
+
 # Prerequisites
 *.d
 
