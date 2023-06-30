@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:49:15 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/06/30 19:06:18 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/06/30 19:44:59 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,34 @@ int	ft_check_arguments(int argc, char **argv)
 // {
 // 	int	i;
 
-// 	data->phylosophers = malloc(data->number_of_philosophers * sizeof(int));
+// 	data->phylosophers = malloc(data->quantity * sizeof(int));
 // 	i = 1;
-// 	while (i <= data->number_of_philosophers)
+// 	while (i <= data->quantity)
 // 	{
 // 		data->phylosophers[i] = i;
 // 		i++;
 // 	}
 // }
 
+void	ft_create_mutex_forks(t_data *data, int num)
+{
+	int	i;
+
+	data->mutex_forks = malloc(num * sizeof(pthread_mutex_t));
+	i = 0;
+	while (i < num)
+	{
+		pthread_mutex_init(&data->mutex_forks[i], 0);
+		i++;
+	}
+}
+
 int	ft_init_data(t_data **data, int argc, char **argv)
 {
 	if (ft_check_arguments(argc, argv))
 		return (1);
 	*data = malloc(sizeof(t_data));
-	(*data)->number_of_philosophers = ft_atoi(argv[1]);
+	(*data)->quantity = ft_atoi(argv[1]);
 	(*data)->time_to_die = ft_atoi(argv[2]) * 1000;
 	(*data)->time_to_eat = ft_atoi(argv[3]) * 1000;
 	(*data)->time_to_sleep = ft_atoi(argv[4]) * 1000;
@@ -51,7 +64,8 @@ int	ft_init_data(t_data **data, int argc, char **argv)
 		(*data)->optional_arg = ft_atoi(argv[5]);
 	else
 		(*data)->optional_arg = 0;
-	pthread_mutex_init(&((*data)->mutex_for_stdout), 0);
+	pthread_mutex_init(&((*data)->mutex_stdout), 0);
+	ft_create_mutex_forks(*data, (*data)->quantity);
 	//ft_init_forks(*data);
 	return (0);
 }

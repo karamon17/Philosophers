@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:27:18 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/06/30 18:33:52 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/06/30 19:44:59 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,15 @@
 
 typedef struct s_data
 {
-	int					number_of_philosophers;
+	int					quantity;
 	//int					*phylosophers;
 	long long			time_to_die;
 	long long			time_to_eat;
 	long long			time_to_sleep;
 	int					optional_arg;
-	pthread_mutex_t		mutex_for_stdout;
+	pthread_mutex_t		mutex_stdout;
 	struct s_philo		*philo_array;
+	pthread_mutex_t		*mutex_forks;
 }					t_data;
 
 typedef struct s_philo
