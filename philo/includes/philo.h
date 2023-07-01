@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:27:18 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/01 14:02:35 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/01 16:29:23 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ void		ft_eat(t_philo *phil);
 void		ft_sleep(t_philo *phil);
 long long	ft_get_time(void);
 long long	ft_current_time(long long start_time);
+void		*ft_is_die(void	*philo);
 
 #endif

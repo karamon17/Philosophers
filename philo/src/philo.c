@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:54:09 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/01 14:59:39 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/01 17:20:40 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,49 +21,23 @@ void	*ft_philo(void *pointer)
 		usleep(2000);
 	while (1)
 	{
-		pthread_mutex_lock(&phil->data->mutex_stdout);
-		if (!phil->data->flag_die && ft_current_time(phil->data->start_time) - phil->last_meal > phil->data->time_to_die)
-		{
-			printf("%lld Philo %d die\n", ft_current_time(phil->data->start_time), phil->num + 1);
-			pthread_mutex_unlock(&phil->data->mutex_stdout);
-			phil->data->flag_die = 1;
-			return (NULL);
-		}
-		pthread_mutex_unlock(&phil->data->mutex_stdout);
 		if (phil->data->flag_die)
 			return (NULL);
 		ft_eat(phil);
-		pthread_mutex_lock(&phil->data->mutex_stdout);
-		if (!phil->data->flag_die && ft_current_time(phil->data->start_time) - phil->last_meal > phil->data->time_to_die)
-		{
-			printf("%lld Philo %d die\n", ft_current_time(phil->data->start_time), phil->num + 1);
-			pthread_mutex_unlock(&phil->data->mutex_stdout);
-			phil->data->flag_die = 1;
-			return (NULL);
-		}
-		pthread_mutex_unlock(&phil->data->mutex_stdout);
 		if (phil->data->flag_die)
 			return (NULL);
 		ft_sleep(phil);
-		pthread_mutex_lock(&phil->data->mutex_stdout);
-		if (!phil->data->flag_die && ft_current_time(phil->data->start_time) - phil->last_meal > phil->data->time_to_die)
-		{
-			printf("%lld Philo %d die\n", ft_current_time(phil->data->start_time), phil->num + 1);
-			pthread_mutex_unlock(&phil->data->mutex_stdout);
-			phil->data->flag_die = 1;
-			return (NULL);
-		}
-		pthread_mutex_unlock(&phil->data->mutex_stdout);
 		if (phil->data->flag_die)
 			return (NULL);
 		pthread_mutex_lock(&phil->data->mutex_stdout);
-		printf("%lld Philo %d thinking\n", ft_current_time(phil->data->start_time), phil->num + 1);
+		if (phil->data->flag_die)
+			return (NULL);
+		printf("%lld Philo %d is thinking\n", ft_current_time(phil->data->start_time), phil->num + 1);
 		pthread_mutex_unlock(&phil->data->mutex_stdout);
 		if (phil->data->flag_die)
 			return (NULL);
 	}
 	return (NULL);
-
 }
 
 void	ft_destroy_mutexes(t_data *data, int num)
@@ -81,8 +55,9 @@ void	ft_destroy_mutexes(t_data *data, int num)
 
 void	ft_run(t_data *data, int num)
 {
-	t_philo	*philos;
-	int		i;
+	t_philo		*philos;
+	int			i;
+	pthread_t	check_die;
 
 	philos = malloc(num * sizeof(t_philo));
 	ft_init_philo(philos, data, num);
@@ -93,6 +68,7 @@ void	ft_run(t_data *data, int num)
 		pthread_create(&philos[i].threads, 0, ft_philo, &data->philo_array[i]);
 		i++;
 	}
+	pthread_create(&check_die, 0, ft_is_die, philos);
 	i = 0;
 	while (i < data->quantity)
 	{
