@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:27:18 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/06/30 19:44:59 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/01 11:17:50 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 typedef struct s_data
 {
 	int					quantity;
-	//int					*phylosophers;
 	long long			time_to_die;
 	long long			time_to_eat;
 	long long			time_to_sleep;

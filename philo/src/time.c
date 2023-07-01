@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 17:35:23 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/06/30 18:24:24 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/01 11:29:52 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ long long	ft_current_time(long long start_time)
 	long long		milliseconds;
 
 	gettimeofday(&t1, NULL);
-	milliseconds = (t1.tv_sec * 1000LL + t1.tv_usec / 1000) - start_time;
+	milliseconds = (t1.tv_sec * 1000 + t1.tv_usec / 1000) - start_time;
 	return (milliseconds);
 }
 
@@ -28,7 +28,7 @@ long long	ft_get_time(void)
 	long long		milliseconds;
 
 	gettimeofday(&t1, NULL);
-	milliseconds = (t1.tv_sec * 1000LL + t1.tv_usec / 1000);
+	milliseconds = (t1.tv_sec * 1000 + t1.tv_usec / 1000);
 	return (milliseconds);
 }
 

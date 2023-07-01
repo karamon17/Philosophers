@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:54:09 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/06/30 19:50:30 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/01 11:23:42 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	ft_destroy_mutexes(t_data *data, int num)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	pthread_mutex_destroy(&data->mutex_stdout);
-	while (i < num)
+	while (i <= num)
 	{
 		pthread_mutex_destroy(&data->mutex_forks[i]);
 		i++;
@@ -70,14 +70,14 @@ void	ft_run(t_data *data, int num)
 	philos = malloc(num * sizeof(t_philo));
 	ft_init_philo(philos, data, num);
 	data->philo_array = philos;
-	i = 0;
-	while (i < data->quantity)
+	i = 1;
+	while (i <= data->quantity)
 	{
 		pthread_create(&philos[i].threads, 0, ft_philo, &data->philo_array[i]);
 		i++;
 	}
-	i = 0;
-	while (i < data->quantity)
+	i = 1;
+	while (i <= data->quantity)
 	{
 		pthread_join(philos[i].threads, 0);
 		i++;
