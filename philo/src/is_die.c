@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 15:51:25 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/01 16:58:28 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/01 19:45:00 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ void	*ft_is_die(void	*philo)
 				philos->data->flag_die = 1;
 				return (NULL);
 			}
+			// if (philos[i].finished_eating == philos->data->optional_arg)
+			// {
+			// 	philos->data->finished_philo++;
+			// 	if (philos->data->finished_philo == philos->data->quantity)
+			// 		return (NULL);
+			// }
 			i++;
 		}
 	}

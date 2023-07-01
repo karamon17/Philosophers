@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:27:18 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/01 16:29:23 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/01 18:15:33 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_data
 	struct s_philo		*philo_array;
 	pthread_mutex_t		*mutex_forks;
 	int					flag_die;
+	int					finished_philo;
 }					t_data;
 
 typedef struct s_philo

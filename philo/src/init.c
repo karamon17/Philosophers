@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:49:15 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/01 14:42:06 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/01 18:15:36 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	ft_init_data(t_data *data, int argc, char **argv)
 	ft_create_mutex_forks(data, data->quantity);
 	data->start_time = ft_get_time();
 	data->flag_die = 0;
+	data->finished_philo = 0;
 	return (0);
 }
 

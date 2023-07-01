@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:54:09 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/01 17:20:40 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/01 19:55:24 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	*ft_philo(void *pointer)
 		usleep(2000);
 	while (1)
 	{
+		// if (phil->data->finished_philo == phil->data->quantity)
+		// 	return (NULL);
 		if (phil->data->flag_die)
 			return (NULL);
 		ft_eat(phil);
@@ -31,7 +33,10 @@ void	*ft_philo(void *pointer)
 			return (NULL);
 		pthread_mutex_lock(&phil->data->mutex_stdout);
 		if (phil->data->flag_die)
+		{
+			pthread_mutex_unlock(&phil->data->mutex_stdout);
 			return (NULL);
+		}
 		printf("%lld Philo %d is thinking\n", ft_current_time(phil->data->start_time), phil->num + 1);
 		pthread_mutex_unlock(&phil->data->mutex_stdout);
 		if (phil->data->flag_die)
@@ -75,5 +80,6 @@ void	ft_run(t_data *data, int num)
 		pthread_join(philos[i].threads, 0);
 		i++;
 	}
+	pthread_join(check_die, 0);
 	ft_destroy_mutexes(data, data->quantity);
 }
