@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:29:02 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/01 11:35:21 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/01 11:39:15 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,5 @@ int	main(int argc, char **argv)
 	ft_run(&data, data.quantity);
 	free(data.mutex_forks);
 	free(data.philo_array);
-	//free(data);
 	return (0);
 }
