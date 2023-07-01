@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:27:18 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/01 11:17:50 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/01 11:33:35 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_philo
 
 int		ft_atoi(const char *str);
 void	ft_init_forks(t_data *data);
-int		ft_init_data(t_data **data, int argc, char **argv);
+int		ft_init_data(t_data *data, int argc, char **argv);
 void	ft_run(t_data *data, int num);
 void	ft_init_philo(t_philo	*philos, t_data *data, int num);
 void	ft_usleep(int ms);
