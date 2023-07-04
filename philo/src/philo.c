@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:54:09 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/04 13:27:34 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:27:28 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	*ft_philo(void *pointer)
 		usleep(2000);
 	while (1)
 	{
-		// if (phil->data->finished_philo == phil->data->quantity)
-		// 	return (NULL);
 		if (phil->data->flag_die)
 			return (NULL);
 		ft_eat(phil);

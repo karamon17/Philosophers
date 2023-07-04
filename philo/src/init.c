@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:49:15 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/04 13:27:58 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:27:32 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int	ft_init_data(t_data *data, int argc, char **argv)
 	ft_create_mutex_forks(data, data->quantity);
 	data->start_time = ft_get_time();
 	data->flag_die = 0;
-	data->finished_philo = 0;
 	return (0);
 }
 
@@ -91,8 +90,9 @@ void	ft_init_philo(t_philo	*philos, t_data *data, int num)
 		philos[i].data = data;
 		philos[i].finished_eating = 0;
 		philos[i].last_meal = ft_current_time(data->start_time);
-		//pthread_mutex_init(&(philos[i].mutex_last_meal), 0);
-		//pthread_mutex_init(&(philos[i].mutex_eating), 0);
+		philos[i].flag_finished = 0;
+		pthread_mutex_init(&(philos[i].mutex_last_meal), 0);
+		pthread_mutex_init(&(philos[i].mutex_eating), 0);
 		i++;
 	}
 }

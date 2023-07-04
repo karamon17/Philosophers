@@ -5,6 +5,7 @@ philo_bonus/obj
 */*.a
 .vscode/
 .DS_Store
+/Philosphers-42Project-Tester
 
 # Prerequisites
 *.d
