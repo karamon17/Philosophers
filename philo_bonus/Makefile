@@ -1,4 +1,4 @@
-NAME = philo
+NAME = philo_bonus
 
 SRC = src
 OBJ = obj
@@ -7,10 +7,9 @@ SRCS = $(wildcard $(SRC)/*.c)
 
 OBJS = $(subst $(SRC), $(OBJ), $(SRCS:.c=.o))
 
-HEADER = ./includes/philo.h
+HEADER = ./includes/philo_bonus.h
 
-CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=thread
-
+CFLAGS = -Wall -Wextra -Werror -g
 IFLAGS	=	-I./includes/
 
 $(OBJ)/%.o: $(SRC)/%.c $(HEADER) Makefile
