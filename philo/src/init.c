@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:49:15 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/04 15:27:32 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:41:15 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	ft_init_data(t_data *data, int argc, char **argv)
 	else
 		data->optional_arg = 0;
 	pthread_mutex_init(&(data->mutex_stdout), 0);
+	pthread_mutex_init(&(data->mutex_flag_die), 0);
 	ft_create_mutex_forks(data, data->quantity);
 	data->start_time = ft_get_time();
 	data->flag_die = 0;

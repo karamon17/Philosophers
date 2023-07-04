@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 15:51:25 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/04 15:29:42 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:05:10 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ int	ft_all_eat(t_philo *philos, int i)
 		if (ft_count_eat(philos) == philos->data->quantity)
 		{
 			pthread_mutex_unlock(&philos[i].mutex_eating);
+			pthread_mutex_lock(&philos->data->mutex_flag_die);
 			philos->data->flag_die = 1;
+			pthread_mutex_unlock(&philos->data->mutex_flag_die);
 			return (1);
 		}	
 	}
@@ -64,15 +66,14 @@ void	ft_is_die(t_philo *philos)
 				printf("%lld %d died\n", ft_current_time(
 						philos->data->start_time), i + 1);
 				pthread_mutex_unlock(&philos->data->mutex_stdout);
+				pthread_mutex_lock(&philos->data->mutex_flag_die);
 				philos->data->flag_die = 1;
+				pthread_mutex_unlock(&philos->data->mutex_flag_die);
 				pthread_mutex_unlock(&philos[i].mutex_last_meal);
 				return ;
 			}
-			if (ft_all_eat(philos, i))
+			if (ft_all_eat(philos, i++))
 				return ;
-			i++;
 		}
 	}
-	return ;
 }
-

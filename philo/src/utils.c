@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 13:43:35 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/06/30 17:35:41 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:05:33 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,3 @@ int	ft_atoi(const char *str)
 	}
 	return (res * sign);
 }
-
