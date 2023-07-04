@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:27:18 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/01 18:15:33 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/04 12:51:30 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_data
 	struct s_philo		*philo_array;
 	pthread_mutex_t		*mutex_forks;
 	int					flag_die;
+	int					flag_all_eat;
 	int					finished_philo;
 }					t_data;
 
@@ -44,6 +45,8 @@ typedef struct s_philo
 	long long		last_meal;
 	int				is_dead;
 	int				finished_eating;
+	pthread_mutex_t	mutex_last_meal;
+	pthread_mutex_t	mutex_eating;
 }					t_philo;
 
 int			ft_atoi(const char *str);
@@ -56,6 +59,6 @@ void		ft_eat(t_philo *phil);
 void		ft_sleep(t_philo *phil);
 long long	ft_get_time(void);
 long long	ft_current_time(long long start_time);
-void		*ft_is_die(void	*philo);
+void		ft_is_die(t_philo *philo);
 
 #endif

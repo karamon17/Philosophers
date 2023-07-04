@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 14:54:09 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/01 19:55:24 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/04 13:27:34 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	*ft_philo(void *pointer)
 			pthread_mutex_unlock(&phil->data->mutex_stdout);
 			return (NULL);
 		}
-		printf("%lld Philo %d is thinking\n", ft_current_time(phil->data->start_time), phil->num + 1);
+		printf("%lld %d is thinking\n", ft_current_time(phil->data->start_time), phil->num + 1);
 		pthread_mutex_unlock(&phil->data->mutex_stdout);
 		if (phil->data->flag_die)
 			return (NULL);
@@ -54,6 +54,8 @@ void	ft_destroy_mutexes(t_data *data, int num)
 	while (i < num)
 	{
 		pthread_mutex_destroy(&data->mutex_forks[i]);
+		//pthread_mutex_destroy(&data->philo_array[i].mutex_eating);
+		//pthread_mutex_destroy(&data->philo_array[i].mutex_last_meal);
 		i++;
 	}
 }
@@ -62,7 +64,6 @@ void	ft_run(t_data *data, int num)
 {
 	t_philo		*philos;
 	int			i;
-	pthread_t	check_die;
 
 	philos = malloc(num * sizeof(t_philo));
 	ft_init_philo(philos, data, num);
@@ -73,13 +74,12 @@ void	ft_run(t_data *data, int num)
 		pthread_create(&philos[i].threads, 0, ft_philo, &data->philo_array[i]);
 		i++;
 	}
-	pthread_create(&check_die, 0, ft_is_die, philos);
+	ft_is_die(philos);
 	i = 0;
 	while (i < data->quantity)
 	{
 		pthread_join(philos[i].threads, 0);
 		i++;
 	}
-	pthread_join(check_die, 0);
 	ft_destroy_mutexes(data, data->quantity);
 }

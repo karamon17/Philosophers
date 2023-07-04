@@ -9,7 +9,7 @@ OBJS = $(subst $(SRC), $(OBJ), $(SRCS:.c=.o))
 
 HEADER = ./includes/philo.h
 
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=thread
 
 IFLAGS	=	-I./includes/
 
