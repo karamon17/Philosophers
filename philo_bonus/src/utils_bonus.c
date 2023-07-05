@@ -6,9 +6,11 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 13:43:35 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/04 18:44:57 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/05 14:13:47 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "philo_bonus.h"
 
 int	ft_atoi(const char *str)
 {
@@ -35,9 +37,9 @@ int	ft_atoi(const char *str)
 	return (res * sign);
 }
 
-void 	ft_print(t_data *data, int i, char *str)
+void	ft_print(t_data *data, int i, char *str)
 {
-	sem_wait(data->sem);
+	sem_wait(data->sem_print);
 	printf("%lld %d %s\n", ft_current_time(data->start_time), i + 1, str);
-	sem_post(data->sem);
+	sem_post(data->sem_print);
 }

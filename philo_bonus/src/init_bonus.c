@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:26:21 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/04 18:56:36 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/05 18:31:34 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,43 @@ int	ft_check_arguments(int argc, char **argv)
 
 void	ft_open_sem(t_data *data)
 {
+	sem_unlink("forks");
+	sem_unlink("print");
+	sem_unlink("last_meal");
+	sem_unlink("count_eating");
+	data->sem_forks = sem_open("forks", O_CREAT, 0666, data->quantity);
+	data->sem_print = sem_open("print", O_CREAT, 0666, 1);
+	data->sem_last_meal = sem_open("last_meal", O_CREAT, 0666, 1);
+	data->sem_count_eating = sem_open("count_eating", O_CREAT, 0666, 1);
+	if (data->sem_forks == SEM_FAILED || data->sem_print == SEM_FAILED
+		|| data->sem_last_meal == SEM_FAILED
+		|| data->sem_count_eating == SEM_FAILED)
+	{
+		write(2, "Error: sem_open\n", 16);
+		exit(1);
+	}
+}
+
+void	ft_init_philo(t_philo *philo)
+{
 	int	i;
 
 	i = 0;
-	while (i < data->quantity)
+	while (i < philo->data->quantity)
 	{
-		data->sem_forks[i] = sem_open("forks", O_CREAT, 0644, 1);
+		philo[i].num = i + 1;
+		philo[i].finished_eating = 0;
+		philo[i].data = philo->data;
+		philo[i].last_meal = 0;
+		philo[i].pid = 0;
 		i++;
 	}
 }
 
 int	ft_init_data(t_data *data, int argc, char **argv)
 {
+	t_philo	*philos;
+
 	if (ft_check_arguments(argc, argv))
 		return (1);
 	data->time_to_die = ft_atoi(argv[2]);
@@ -72,9 +97,10 @@ int	ft_init_data(t_data *data, int argc, char **argv)
 	else
 		data->optional_arg = 0;
 	data->start_time = ft_get_time();
-	data->flag_die = 0;
-	data->pid = malloc(sizeof(pid_t) * data->quantity);
-	data->sem_forks = malloc(sizeof(sem_t *) * data->quantity);
+	philos = malloc(sizeof(t_philo) * data->quantity);
+	data->philo = philos;
+	philos->data = data;
 	ft_open_sem(data);
+	ft_init_philo(philos);
 	return (0);
 }

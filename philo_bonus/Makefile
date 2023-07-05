@@ -9,7 +9,7 @@ OBJS = $(subst $(SRC), $(OBJ), $(SRCS:.c=.o))
 
 HEADER = ./includes/philo_bonus.h
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 IFLAGS	=	-I./includes/
 
 $(OBJ)/%.o: $(SRC)/%.c $(HEADER) Makefile
