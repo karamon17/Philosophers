@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 12:18:16 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/04 17:05:25 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/05 19:55:48 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_one_filosof(t_philo *phil)
 		pthread_mutex_lock(&phil->data->mutex_stdout);
 	}
 	else
-		usleep(phil->data->time_to_die * 1000);
+		ft_usleep(phil->data->time_to_die + 10);
 }
 
 int	ft_right_fork(t_philo *phil)

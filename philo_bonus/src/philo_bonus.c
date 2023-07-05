@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:34:12 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/05 18:33:10 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/05 20:01:57 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	ft_eat(t_data *data, int i)
 	ft_print(data, i, "has taken a fork");
 	if (data->quantity == 1)
 	{
-		ft_usleep(data->time_to_die);
+		ft_usleep(data->time_to_die + 10);
+		sem_post(data->sem_forks);
 		pthread_join(data->philo[i].is_dead, NULL);
 		exit(1);
 	}
@@ -38,12 +39,22 @@ void	ft_eat(t_data *data, int i)
 
 void	ft_philo(t_data *data, int i)
 {
-	pthread_create(&data->philo[i].is_dead, NULL, ft_is_dead, data);
+	pthread_create(&data->philo[i].is_dead, NULL, ft_is_dead, data->philo + i);
 	if (data->philo[i].num % 2 == 0)
 		usleep(1000);
 	while (1)
 	{
+		sem_wait(data->sem_count_eating);
+		if (data->optional_arg && data->philo[i].finished_eating
+			>= data->optional_arg)
+			break ;
+		sem_post(data->sem_count_eating);
 		ft_eat(data, i);
+		sem_wait(data->sem_count_eating);
+		if (data->optional_arg && data->philo[i].finished_eating
+			>= data->optional_arg)
+			break ;
+		sem_post(data->sem_count_eating);
 		ft_print(data, i, "is sleeping");
 		ft_usleep(data->time_to_sleep);
 		ft_print(data, i, "is thinking");
