@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:34:12 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/05 20:01:57 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/06 10:08:34 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ void	ft_eat(t_data *data, int i)
 
 void	ft_philo(t_data *data, int i)
 {
-	pthread_create(&data->philo[i].is_dead, NULL, ft_is_dead, data->philo + i);
-	if (data->philo[i].num % 2 == 0)
-		usleep(1000);
 	while (1)
 	{
 		sem_wait(data->sem_count_eating);
@@ -65,8 +62,34 @@ void	ft_philo(t_data *data, int i)
 		sem_post(data->sem_count_eating);
 	}
 	sem_post(data->sem_count_eating);
-	pthread_join(data->philo[i].is_dead, NULL);
-	exit(0);
+}
+
+void	ft_kill(t_data *data)
+{
+	int	i;
+	int	status;
+
+	i = 0;
+	while (i < data->quantity)
+	{
+		waitpid(-1, &status, 0);
+		if (status)
+		{
+			i = -1;
+			while (++i < data->quantity)
+				kill(data->philo[i].pid, SIGKILL);
+			break ;
+		}
+		i++;
+	}
+	sem_close(data->sem_forks);
+	sem_close(data->sem_print);
+	sem_close(data->sem_last_meal);
+	sem_close(data->sem_count_eating);
+	sem_unlink("forks");
+	sem_unlink("print");
+	sem_unlink("last_meal");
+	sem_unlink("count_eating");
 }
 
 void	ft_run(t_data *data)
@@ -83,7 +106,15 @@ void	ft_run(t_data *data)
 			exit(1);
 		}
 		if (data->philo[i].pid == 0)
+		{
+			pthread_create(&data->philo[i].is_dead, NULL, ft_is_dead,
+				data->philo + i);
+			if (data->philo[i].num % 2 == 0)
+				usleep(1000);
 			ft_philo(data, i);
+			pthread_join(data->philo[i].is_dead, NULL);
+			exit(0);
+		}
 		i++;
 	}
 	ft_kill(data);

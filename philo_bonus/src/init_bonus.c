@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:26:21 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/06 09:46:18 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/06 10:17:48 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_check_arguments(int argc, char **argv)
 		return (1);
 	i = 0;
 	while (++i < argc)
-		if (ft_atoi(argv[i]) < 0)
+		if (ft_atoi(argv[i]) < 0 || ft_atoi(argv[i]) > 2147483647)
 			return (1);
 	if (ft_check_letter(argc, argv))
 		return (1);

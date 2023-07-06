@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_dead.c                                          :+:      :+:    :+:   */
+/*   is_dead_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 13:03:23 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/05 19:59:06 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/06 10:08:43 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,9 @@ void	*ft_is_dead(void *arg)
 		sem_wait(philo->data->sem_count_eating);
 		if (philo->data->optional_arg && philo->finished_eating
 			>= philo->data->optional_arg)
-		{
-			sem_post(philo->data->sem_count_eating);
-			return (NULL);
-		}
+			break ;
 		sem_post(philo->data->sem_count_eating);
 	}
+	sem_post(philo->data->sem_count_eating);
 	return (NULL);
 }

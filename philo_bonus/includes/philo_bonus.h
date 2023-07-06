@@ -6,7 +6,7 @@
 /*   By: gkhaishb <gkhaishb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 12:27:18 by gkhaishb          #+#    #+#             */
-/*   Updated: 2023/07/05 14:43:21 by gkhaishb         ###   ########.fr       */
+/*   Updated: 2023/07/06 10:36:48 by gkhaishb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_philo
 	int				finished_eating;
 }					t_philo;
 
-int			ft_atoi(const char *str);
+long long	ft_atoi(const char *str);
 int			ft_init_data(t_data *data, int argc, char **argv);
 void		ft_usleep(int ms);
 long long	ft_get_time(void);
